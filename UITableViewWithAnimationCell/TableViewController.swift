@@ -10,23 +10,21 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    let array = ["First",
-                 "Second",
-                 "Third",
-                 "Fourth",
-                 "Fifth",
-                 "Sixth",
-                 "Seventh",
-                 "Eight",
-                 "Ninth",
-                 "Tenth"
-    ]
+    private var numbers: [Int]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+        generateNumbers()
+
+    }
+    
+    private func generateNumbers() {
+        numbers = [Int]()
+        for _ in 0...10 {
+            let number = Int.random(in: 10...20000)
+            numbers.append(number)
+        }
     }
     
     // MARK: - Table view data source
@@ -38,12 +36,12 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return array.count
+        return numbers.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = array[indexPath.row]
+        cell.textLabel?.text = String(numbers[indexPath.row])
         return cell
     }
     
@@ -74,6 +72,6 @@ extension TableViewController {
         
         UIView.animate(withDuration: 1, delay: 0.2 * Double(indexPath.row), options: .curveEaseInOut, animations: {
             cell.layer.transform = CATransform3DIdentity
-        }, completion: nil)
+        })
     }
 }
